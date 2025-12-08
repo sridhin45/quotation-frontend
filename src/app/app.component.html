@@ -1,0 +1,42 @@
+<div class="layout">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="logo">My App</div>
+  
+      <div class="top-right">
+        <span class="user">Welcome</span>
+      </div>
+    </header>
+  
+    <div class="main-container">
+  
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <ul>
+            <li (click)="goTo('/quotations/add')" 
+            [class.active]="isActive('/quotations/add')">
+          Add Quotation
+        </li>
+        
+        <li (click)="goTo('/quotations')" 
+            [class.active]="isActive('/quotations')">
+          Quotation List
+        </li>
+        
+        <li (click)="goTo('/quotations/view/1')" 
+            [class.active]="isActive('/quotations/view/1')">
+          Sample View
+        </li>
+        
+        </ul>
+      </aside>
+  
+      <!-- MAIN CONTENT -->
+      <main class="content">
+        <router-outlet></router-outlet>
+      </main>
+  
+    </div>
+  </div>
+  

@@ -1,0 +1,45 @@
+<div class="quotation-container">
+
+  <h2>Quotation List</h2>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Sl No</th>
+        <th>Quotation No</th>
+        <th>Date</th>
+        <th>Customer Name</th>
+        <th>Total</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let q of quotations; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ q.quote_no }}</td>
+        <td>{{ q.date | date:'dd-MMM-yyyy' }}</td>
+        <td>{{ q.customer_name }}</td>
+        <td>{{ q.total }}</td>
+
+        <td>
+          <!-- View Button -->
+          <button 
+            class="btn btn-info btn-sm me-2"
+            (click)="viewQuotation(q.id)">
+            View
+          </button>
+
+          <!-- Download PDF Button -->
+          <button 
+            class="btn btn-primary btn-sm"
+            (click)="downloadPDF(q.id)">
+            Download PDF
+          </button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+</div>

@@ -1,0 +1,119 @@
+<div class="quotation-container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">
+      <img src="assets/celastial-logo.png" alt="Company Logo" />
+    </div>
+
+    <div class="company-info">
+      <h1>CELESTIAL LIGHTS</h1>
+      <p>XLVI/794, Near Income Tax Office, Kannothumchal, Kannur</p>
+      <p>Phone: +91-7560940958</p>
+      <p>Email: celestiallightskannurgmail.com</p>
+      <p>Website: www.celestiallights.com</p>
+    </div>
+  </div>
+
+  <!-- TITLE -->
+  <h2 class="title">QUOTATION</h2>
+
+  <!-- CUSTOMER DETAILS BOX -->
+  <div class="details-box">
+    <div class="row">
+      <span class="label">Quotation No:</span>
+      <span class="value">{{ quotation?.quote_no }}</span>
+    </div>
+    <div class="row">
+      <span class="label">Date:</span>
+      <span class="value">{{ quotation?.date | date:'dd-MMM-yyyy' }}</span>
+    </div>
+    <div class="row">
+      <span class="label">Customer:</span>
+      <span class="value">{{ quotation?.customer_name }}</span>
+    </div>
+    <div class="row">
+      <span class="label">Phone:</span>
+      <span class="value">{{ quotation?.customer_phone }}</span>
+    </div>
+    <div class="row">
+      <span class="label">Salesman:</span>
+      <span class="value">{{ quotation?.salesman_name }}</span>
+    </div>
+  </div>
+
+  <!-- ITEMS TABLE -->
+  <table class="items-table">
+    <thead>
+      <tr>
+        <th>Sl No</th>
+        <th>Description</th>
+        <th>Image</th>
+        <th>Qty</th>
+        <th>Unit Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of quotation?.items; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ item.description }}</td>
+        <td>
+<img 
+  class="item-img"
+  [src]="'https://quotation-backend-e2jd.onrender.com/uploads/' + item.image"
+  alt="item image"
+/>
+
+        </td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.unit_price | number:'1.2-2' }}</td>
+        <td>{{ item.line_total | number:'1.2-2' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TOTAL -->
+  <div class="total-box">
+    <span class="label">TOTAL:</span>
+    <span class="value">₹ {{ quotation?.total }}</span>
+  </div>
+
+
+  <!-- TOTAL -->
+
+  <!-- BANK DETAILS -->
+  <h2 class="sub-title">Bank Details</h2>
+
+  <div class="bank-details">
+    <p>Account Name: <b>CELESTIAL LIGHTS</b></p>
+    <p>Account No: <b>50200107775048</b></p>
+    <p>Bank: <b>HDFC BANK LTD</b></p>
+    <p>Branch: <b>KANNUR</b></p>
+    <p>IFSC Code: <b>HDFC0001522</b></p>
+  </div>
+
+  <!-- TERMS -->
+  <h2 class="sub-title">Terms & Conditions</h2>
+
+  <ul class="terms">
+    <li>There is no return which products are against ordered.</li>
+    <li>Quotation valid for 10 days.</li>
+    <li>Work will commence after advance payment.</li>
+    <li>Payment Terms:
+      <ul>
+        <li>80% advance on confirmation.</li>
+        <li>Remaining before dispatch.</li>
+        <li>Free delivery.</li>
+        <li>Delivery 4 days if in stock; else 6–10 days.</li>
+      </ul>
+    </li>
+    <li>Date of receipt of advance = order confirmation date.</li>
+    <li>Customer must verify product condition at delivery.</li>
+  </ul>
+
+  <!-- <button class="pdf-btn" (click)="downloadPDF()">Download PDF</button> -->
+
+</div>
+<button class="pdf-btn" (click)="printQuotation()">Print</button>

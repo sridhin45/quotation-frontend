@@ -1,0 +1,106 @@
+/* =============================
+   CONTAINER STYLING
+============================= */
+.quotation-container {
+    max-width: 1000px;
+    margin: 25px auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  }
+  
+  .quotation-container h2 {
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* =============================
+     TABLE
+  ============================= */
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+  }
+  
+  table thead th {
+    background: #4a74f0;
+    color: #fff;
+    padding: 12px;
+    font-size: 14px;
+    text-align: left;
+  }
+  
+  table tbody tr {
+    background: #f8f9ff;
+    transition: 0.2s ease-in-out;
+  }
+  
+  table tbody tr:hover {
+    background: #eef1ff;
+  }
+  
+  table td {
+    padding: 12px;
+    border-bottom: 1px solid #e6e6e6;
+    font-size: 14px;
+    color: #444;
+  }
+  
+  /* =============================
+     BUTTONS
+  ============================= */
+  .btn {
+    border: none;
+    padding: 7px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  
+  .btn-primary {
+    background: #4a74f0;
+    color: #fff;
+  }
+  
+  .btn-primary:hover {
+    background: #3657c9;
+  }
+  
+  /* =============================
+     RESPONSIVE
+  ============================= */
+  @media (max-width: 768px) {
+    .quotation-container {
+      padding: 15px;
+    }
+  
+    table thead {
+      display: none;
+    }
+  
+    table tbody tr {
+      display: block;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      padding: 10px;
+    }
+  
+    table tbody td {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 5px;
+      border-bottom: none;
+    }
+  
+    table tbody td::before {
+      content: attr(data-label);
+      font-weight: 600;
+      color: #333;
+    }
+  }
+  

@@ -1,0 +1,66 @@
+<h2 style="text-align: center; color: rgb(26, 165, 26);">Quotation Form</h2>
+<form (ngSubmit)="submit()" class="quote-form">
+
+  <div class="section">
+    <div class="row">
+      <div class="field">
+        <label>Customer Name</label>
+        <input type="text" name="customerName" [(ngModel)]="customerName" required />
+      </div>
+
+      <div class="field">
+        <label>Customer Phone</label>
+        <input type="text" name="customerPhone" [(ngModel)]="customerPhone" />
+      </div>
+
+      <div class="field">
+        <label>Salesman Name</label>
+        <input type="text" name="salesmanName" [(ngModel)]="salesmanName" required />
+      </div>
+
+      <div class="field">
+        <label>Tax (%)</label>
+        <input type="number" name="tax" [(ngModel)]="tax" />
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div *ngFor="let item of items; let i = index" class="item-card">
+    <h4>Item {{ i + 1 }}</h4>
+
+    <div class="row">
+      <div class="field large">
+        <label>Name Of The Item</label>
+        <input type="text" [(ngModel)]="item.description" name="d{{i}}" />
+      </div>
+
+      <div class="field small">
+        <label>Qty</label>
+        <input type="number" [(ngModel)]="item.quantity" name="q{{i}}" />
+      </div>
+
+      <div class="field small">
+        <label>Unit Price</label>
+        <input type="number" [(ngModel)]="item.unit_price" name="p{{i}}" />
+      </div>
+
+      <div class="field">
+        <label>Product Image</label>
+        <input type="file" (change)="onItemImageSelected($event, i)" />
+      </div>
+
+      <button type="button" class="remove-btn" *ngIf="items.length > 1" (click)="removeItem(i)">
+        ✖
+      </button>
+    </div>
+
+    <hr>
+  </div>
+
+  <button type="button" class="add-btn" (click)="addItem()">+ Add Item</button>
+
+  <button type="submit" class="submit-btn">Create Quotation</button>
+
+</form>
