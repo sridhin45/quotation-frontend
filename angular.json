@@ -18,15 +18,14 @@
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+       "assets": [
+  "src/favicon.ico",
+  "src/assets",
+  "src/public"
+],
 
             "styles": ["src/styles.css"],
             "scripts": [],
-
             "allowedCommonJsDependencies": [
               "jspdf",
               "html2canvas",
@@ -35,7 +34,6 @@
               "raf"
             ]
           },
-
           "configurations": {
             "production": {
               "budgets": [
@@ -52,14 +50,12 @@
               ],
               "outputHashing": "all"
             },
-
             "development": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
             }
           },
-
           "defaultConfiguration": "production"
         },
 
