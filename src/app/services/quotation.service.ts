@@ -32,6 +32,13 @@ export class QuotationService {
     return this.http.get<any[]>(`${this.baseUrl}/customers`);
   }
   
+updateQuotation(id: number, formData: FormData) {
+  return this.http.put(`${this.baseUrl}/quotations/${id}`, formData);
+}
+
+deleteQuotation(id: number) {
+  return this.http.delete(`${this.baseUrl}/quotations/${id}`);
+}
 
   
   

@@ -194,5 +194,16 @@ img.crossOrigin = "anonymous";
   printQuotation() {
     window.print();
   }
-  
+  deleteQuotation(id: number) {
+  if (!confirm("Are you sure you want to delete this quotation?")) return;
+
+  this.qs.deleteQuotation(id).subscribe({
+    next: () => {
+      alert("Quotation deleted!");
+      history.back();
+    },
+    error: (err) => alert("Delete failed")
+  });
+}
+
 }

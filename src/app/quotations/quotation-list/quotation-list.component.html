@@ -1,45 +1,59 @@
-<div class="quotation-container">
+<div class="table-container">
 
-  <h2>Quotation List</h2>
+  <h2 style="margin-bottom: 15px;">Quotation List</h2>
+<div>
+  <!-- 🔍 SEARCH BAR -->
+  <div class="search-bar">
+    <input 
+      type="text"
+      placeholder="Search by Customer or Quotation No..."
+      [(ngModel)]="searchText"
+      (input)="filterQuotations()"
+    />
+  </div>
 
-  <table class="table table-bordered">
+  <!-- TABLE -->
+  <table class="table">
     <thead>
       <tr>
         <th>Sl No</th>
         <th>Quotation No</th>
         <th>Date</th>
-        <th>Customer Name</th>
+        <th>Customer</th>
         <th>Total</th>
-        <th>Actions</th>
+        <th style="width:150px;">Actions</th>
       </tr>
     </thead>
 
     <tbody>
-      <tr *ngFor="let q of quotations; let i = index">
+      <tr *ngFor="let q of filteredQuotations; let i = index">
         <td>{{ i + 1 }}</td>
         <td>{{ q.quote_no }}</td>
         <td>{{ q.date | date:'dd-MMM-yyyy' }}</td>
         <td>{{ q.customer_name }}</td>
-        <td>{{ q.total }}</td>
+        <td>₹ {{ q.total }}</td>
 
-        <td>
-          <!-- View Button -->
-          <button 
-            class="btn btn-info btn-sm me-2"
-            (click)="viewQuotation(q.id)">
-            View
+        <td class="action-cell">
+
+          <!-- View -->
+          <button mat-icon-button color="primary" (click)="viewQuotation(q.id)">
+            <mat-icon>visibility</mat-icon>
           </button>
 
-          <!-- Download PDF Button -->
-          <button 
-            class="btn btn-primary btn-sm"
-            (click)="downloadPDF(q.id)">
-            Download PDF
+          <!-- Edit -->
+          <button mat-icon-button color="accent" (click)="goToEdit(q.id)">
+            <mat-icon>edit</mat-icon>
           </button>
+
+          <!-- Delete -->
+          <button mat-icon-button color="warn" (click)="deleteQuotation(q.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+
         </td>
       </tr>
     </tbody>
-
   </table>
+  </div>
 
 </div>

@@ -1,106 +1,121 @@
 /* =============================
-   CONTAINER STYLING
+   OUTER WRAPPER
 ============================= */
-.quotation-container {
-    max-width: 1000px;
-    margin: 25px auto;
-    background: #ffffff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+.table-container {
+  max-width: 100%;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  margin: 20px;
+}
+
+/* =============================
+   HEADING
+============================= */
+.table-container h2 {
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 22px;
+  color: #222;
+}
+
+/* =============================
+   SEARCH BAR
+============================= */
+.search-bar {
+  margin-bottom: 15px;
+}
+
+.search-bar input {
+ width: 97%;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.search-bar input:focus {
+  border-color: #4a74f0;
+  box-shadow: 0 0 5px rgba(74, 116, 240, 0.4);
+}
+
+/* =============================
+   TABLE
+============================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  background: #4a74f0;
+  color: #fff;
+  padding: 12px;
+  font-size: 14px;
+  text-align: left;
+}
+
+tbody tr {
+  background: #f8f9ff;
+  border-bottom: 1px solid #e6e6e6;
+  transition: 0.2s;
+}
+
+tbody tr:hover {
+  background: #eef1ff;
+}
+
+td {
+  padding: 12px;
+  font-size: 14px;
+  color: #444;
+}
+
+/* =============================
+   ACTION BUTTONS (MAT ICON FIX)
+============================= */
+.action-cell button[mat-icon-button] {
+  margin-right: 4px;
+  background: #fff;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: 0.2s;
+}
+
+.action-cell button:hover {
+  transform: scale(1.08);
+}
+
+/* =============================
+   RESPONSIVE
+============================= */
+@media (max-width: 768px) {
+  thead {
+    display: none;
   }
-  
-  .quotation-container h2 {
-    margin-bottom: 20px;
+
+  tbody tr {
+    display: block;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 5px;
+    border-bottom: none;
+  }
+
+  tbody td::before {
+    content: attr(data-label);
     font-weight: 600;
-    font-size: 24px;
     color: #333;
-    text-align: center;
   }
-  
-  /* =============================
-     TABLE
-  ============================= */
-  table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 10px;
-  }
-  
-  table thead th {
-    background: #4a74f0;
-    color: #fff;
-    padding: 12px;
-    font-size: 14px;
-    text-align: left;
-  }
-  
-  table tbody tr {
-    background: #f8f9ff;
-    transition: 0.2s ease-in-out;
-  }
-  
-  table tbody tr:hover {
-    background: #eef1ff;
-  }
-  
-  table td {
-    padding: 12px;
-    border-bottom: 1px solid #e6e6e6;
-    font-size: 14px;
-    color: #444;
-  }
-  
-  /* =============================
-     BUTTONS
-  ============================= */
-  .btn {
-    border: none;
-    padding: 7px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 13px;
-  }
-  
-  .btn-primary {
-    background: #4a74f0;
-    color: #fff;
-  }
-  
-  .btn-primary:hover {
-    background: #3657c9;
-  }
-  
-  /* =============================
-     RESPONSIVE
-  ============================= */
-  @media (max-width: 768px) {
-    .quotation-container {
-      padding: 15px;
-    }
-  
-    table thead {
-      display: none;
-    }
-  
-    table tbody tr {
-      display: block;
-      margin-bottom: 12px;
-      border-radius: 8px;
-      padding: 10px;
-    }
-  
-    table tbody td {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 5px;
-      border-bottom: none;
-    }
-  
-    table tbody td::before {
-      content: attr(data-label);
-      font-weight: 600;
-      color: #333;
-    }
-  }
-  
+}

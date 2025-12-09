@@ -1,42 +1,49 @@
 <div class="layout">
 
-    <!-- TOP BAR -->
-    <header class="topbar">
-      <div class="logo">My App</div>
-  
-      <div class="top-right">
-        <span class="user">Welcome</span>
-      </div>
-    </header>
-  
-    <div class="main-container">
-  
-      <!-- SIDEBAR -->
-      <aside class="sidebar">
-        <ul>
-            <li (click)="goTo('/quotations/add')" 
+  <!-- TOP BAR -->
+<header class="topbar">
+  <div class="logo-area">
+    <img src="assets\celastial.png" alt="Logo" class="top-logo">
+    <span class="logo-textl">Quotation System</span>
+  </div>
+
+  <!-- <div class="top-right">
+    <span class="logo-textl">Welcome</span>
+  </div> -->
+</header>
+
+
+  <div class="main-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <ul>
+
+        <li (click)="goTo('/quotations/add')" 
             [class.active]="isActive('/quotations/add')">
+          <mat-icon>add_circle</mat-icon>
           Add Quotation
         </li>
-        
+
         <li (click)="goTo('/quotations')" 
             [class.active]="isActive('/quotations')">
+          <mat-icon>list_alt</mat-icon>
           Quotation List
         </li>
-        
+
         <li (click)="goTo('/quotations/view/1')" 
-            [class.active]="isActive('/quotations/view/1')">
+            [class.active]="isActive('/quotations/view')">
+          <mat-icon>visibility</mat-icon>
           Sample View
         </li>
-        
-        </ul>
-      </aside>
-  
-      <!-- MAIN CONTENT -->
-      <main class="content">
-        <router-outlet></router-outlet>
-      </main>
-  
-    </div>
+
+      </ul>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+
   </div>
-  
+</div>

@@ -1,11 +1,39 @@
 import { Routes } from '@angular/router';
-import { QuotationAddComponent } from './quotations/quotation-add/quotation-add.component';
-import { QuotationListComponent } from './quotations/quotation-list/quotation-list.component';
-import { QuotationViewComponent } from './quotations/quotation-view/quotation-view.component';
 
 export const routes: Routes = [
-  { path: 'quotations/add', component: QuotationAddComponent },
-  { path: 'quotations', component: QuotationListComponent },
-  { path: 'quotations/view/:id', component: QuotationViewComponent },
+
+  // ADD NEW QUOTATION
+  {
+    path: 'quotations/add',
+    loadComponent: () =>
+      import('./quotations/quotation-add/quotation-add.component')
+        .then(m => m.QuotationAddComponent)
+  },
+
+  // EDIT EXISTING QUOTATION
+  {
+    path: 'quotations/edit/:id',
+    loadComponent: () =>
+      import('./quotations/quotation-add/quotation-add.component')
+        .then(m => m.QuotationAddComponent)
+  },
+
+  // LIST PAGE
+  {
+    path: 'quotations',
+    loadComponent: () =>
+      import('./quotations/quotation-list/quotation-list.component')
+        .then(m => m.QuotationListComponent)
+  },
+
+  // VIEW PAGE
+  {
+    path: 'quotations/view/:id',
+    loadComponent: () =>
+      import('./quotations/quotation-view/quotation-view.component')
+        .then(m => m.QuotationViewComponent)
+  },
+
+  // DEFAULT ROUTE
   { path: '**', redirectTo: 'quotations' }
 ];
