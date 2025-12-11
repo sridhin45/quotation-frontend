@@ -36,7 +36,11 @@
           <mat-icon>visibility</mat-icon>
           Sample View
         </li>
-
+    <li (click)="goTo('/quotations/item-list')" 
+            [class.active]="isActive('/quotations/item-list')">
+          <mat-icon>products</mat-icon>
+          Item List
+        </li>
       </ul>
     </aside>
 

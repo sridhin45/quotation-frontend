@@ -1,4 +1,8 @@
+
+
 <div class="quotation-container">
+
+
 
   <!-- HEADER -->
   <div class="header">
@@ -62,7 +66,7 @@
         <td>
 <img 
   class="item-img"
-  [src]="'https://quotation-backend-e2jd.onrender.com/uploads/' + item.image"
+  [src]="'https://quotation-backend-1-eewh.onrender.com/uploads/' + item.image"
   alt="item image"
 />
 
@@ -116,8 +120,17 @@
   <!-- <button class="pdf-btn" (click)="downloadPDF()">Download PDF</button> -->
 
 </div>
-<button class="pdf-btn" (click)="printQuotation()">Print</button>
-<button (click)="deleteQuotation(quotation.id)">Delete</button>
-<!-- <button (click)="router.navigate(['/quotations/edit', quotation.id])">
-  Edit
-</button> -->
+<br>
+
+<div class="top-actions">
+<button mat-raised-button color="primary" class="action-btn" (click)="printQuotation()">
+  <mat-icon>print</mat-icon>
+  Print
+</button>
+ <button mat-raised-button color="warn" class="action-btn"
+        (click)="deleteQuotation(quotation.id)">
+  <mat-icon>delete</mat-icon>
+  Delete
+</button>
+
+</div>

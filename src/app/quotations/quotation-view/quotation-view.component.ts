@@ -4,11 +4,14 @@ import { QuotationService } from '../../services/quotation.service';
 import { CommonModule } from '@angular/common';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-quotation-view',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,  MatButtonModule,
+  MatIconModule],
   templateUrl: './quotation-view.component.html',
   styleUrls: ['./quotation-view.component.css']
 })
@@ -47,7 +50,7 @@ export class QuotationViewComponent implements OnInit {
 
           const img = new Image();
           img.crossOrigin = "anonymous";
-img.src = `https://quotation-backend-e2jd.onrender.com/uploads/${item.image}`;
+img.src = `https://quotation-backend-1-eewh.onrender.com/uploads/${item.image}`;
 img.crossOrigin = "anonymous";
 
           img.onload = () => resolve(img);

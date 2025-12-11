@@ -39,7 +39,9 @@
               "html2canvas",
               "canvg",
               "rgbcolor",
-              "raf"
+              "raf",
+                 "canvg",
+        "core-js"
             ]
           },
           "configurations": {

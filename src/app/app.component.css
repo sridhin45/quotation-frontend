@@ -119,3 +119,24 @@
   padding: 25px;
   overflow-y: auto;
 }
+/* HIDE LAYOUT DURING PRINT */
+@media print {
+
+  /* Hide topbar + sidebar completely */
+  .topbar,
+  .sidebar {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Optional: hide layout wrapper */
+  .layout {
+    display: block !important;
+  }
+
+  /* Reset sticky & fixed elements */
+  * {
+    position: static !important;
+    box-shadow: none !important;
+  }
+}

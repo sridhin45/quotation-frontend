@@ -34,6 +34,13 @@ export const routes: Routes = [
         .then(m => m.QuotationViewComponent)
   },
 
+    {
+    path: 'quotations/item-list',
+    loadComponent: () =>
+      import('./quotations/item-list/item-list.component')
+        .then(m => m.ItemListComponent)
+  },
+
   // DEFAULT ROUTE
   { path: '**', redirectTo: 'quotations' }
 ];

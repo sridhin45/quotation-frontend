@@ -110,3 +110,102 @@ input:focus, select:focus {
 .submit-btn:hover {
   background: #469e48;
 }
+.suggestion-box {
+  position: absolute;
+  background: white;
+  border: 1px solid #d1d5db;
+  width: 100%;
+  margin-top: 2px;
+  border-radius: 6px;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.suggestion-box li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.suggestion-box li:hover {
+  background: #e5f0ff;
+}
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: 10px;
+}
+
+.icon-btn mat-icon {
+  font-size: 22px;
+}
+
+.icon-btn.delete mat-icon {
+  color: red;
+}
+
+.add-btn mat-icon {
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+.submit-btn mat-icon {
+  vertical-align: middle;
+  margin-right: 6px;
+}
+/* Ensure dropdown stays inside the field box */
+.field.large {
+  position: relative;
+}
+
+/* DROPDOWN FIX — Appears below input, not over row */
+.suggestion-box {
+  position: absolute;
+  top: 100%;              /* Directly below input */
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+
+  max-height: 180px;
+  overflow-y: auto;
+  margin-top: 4px;
+  padding: 0;
+  list-style: none;
+}
+.field.large {
+  position: relative;
+}
+
+.suggestion-box {
+  position: absolute;
+  top: 100%;          /* ALWAYS BELOW INPUT */
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  max-height: 180px;
+  overflow-y: auto;
+  z-index: 9999;      /* Fix overlap issue */
+  padding: 0;
+  margin-top: 2px;
+}
+
+.suggestion-box li {
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.suggestion-box li:hover {
+  background: #f0f0f0;
+}

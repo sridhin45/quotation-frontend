@@ -143,3 +143,62 @@
   padding: 4px;
   background: #fff;
 }
+@media print {
+
+  /* Hide everything except the quotation */
+  body * {
+    visibility: hidden !important;
+  }
+
+  .quotation-container, 
+  .quotation-container * {
+    visibility: visible !important;
+  }
+
+  /* Remove layout bars */
+  header,
+  nav,
+  .navbar,
+  .topbar,
+  app-header,
+  app-navbar,
+  app-topbar {
+    display: none !important;
+  }
+
+  .quotation-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 20mm;
+  }
+}
+.top-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.action-btn mat-icon {
+  font-size: 20px;
+}
+@media print {
+  .top-actions {
+    display: none !important;
+  }
+}
