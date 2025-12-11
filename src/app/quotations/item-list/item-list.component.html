@@ -1,97 +1,83 @@
 <div class="items-container">
 
   <div class="top-bar">
-    <h2>Item List</h2>
-
-<button class="add-btn" (click)="openPopup()">+ Add Item</button>
+    <h2 class="title">Item List</h2>
+    <button class="add-btn" (click)="openPopup()">+ Add Item</button>
   </div>
 
   <!-- SEARCH BOX -->
-  <input 
-    type="text" 
-    placeholder="Search items..." 
-    [(ngModel)]="searchText" 
-    (input)="applySearch()"
-    class="search-box"
-  />
+  <div class="search-wrapper">
+    <i class="ri-search-line search-icon"></i>
+    <input
+      type="text"
+      placeholder="Search items..."
+      [(ngModel)]="searchText"
+      (input)="applySearch()"
+      class="search-box"
+    />
+  </div>
 
   <!-- TABLE -->
-  <table class="item-table">
-    <thead>
-      <tr>
-        <th>Image</th>
-        <th>Item Name</th>
-        <th>Unit Price</th>
-        <th style="width: 120px;">Action</th>
-      </tr>
-    </thead>
+  <div class="table-wrapper">
+    <table class="item-table">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Item Name</th>
+          <th>Unit Price</th>
+          <th class="center">Action</th>
+        </tr>
+      </thead>
 
-    <tbody>
-      <tr *ngFor="let i of filteredItems">
-        <td>
-          <img [src]="imageBase + i.image" class="item-img">
-        </td>
+      <tbody>
+        <tr *ngFor="let i of filteredItems">
+          <td>
+            <img [src]="imageBase + i.image" class="item-img" />
+          </td>
 
-        <td>{{ i.name }}</td>
-        <td>₹ {{ i.unit_price }}</td>
+          <td class="name-col">{{ i.name }}</td>
+          <td>₹ {{ i.unit_price }}</td>
 
-        <td class="action-col">
-<button class="edit-btn" (click)="openEditPopup(i)">Edit</button>
-          <button class="delete-btn" (click)="deleteItem(i.id)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          <td class="action-col">
+            <button class="edit-btn" (click)="openEditPopup(i)">Edit</button>
+            <button class="delete-btn" (click)="deleteItem(i.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 </div>
 
-
-
 <!-- =======================
-      ADD ITEM POPUP
+      ADD / EDIT POPUP
 ======================= -->
 <div class="popup-overlay" *ngIf="showPopup">
   <div class="popup-box">
 
-    <h3>Add New Item</h3>
+    <h3>{{ popupMode === 'add' ? 'Add New Item' : 'Edit Item' }}</h3>
 
-    <!-- Item Name -->
     <label>Item Name</label>
-    <input 
-      type="text" 
-      [(ngModel)]="newItem.name"
-      placeholder="Enter item name"
-    />
+    <input type="text" [(ngModel)]="newItem.name" placeholder="Enter item name" />
 
-    <!-- Item Price -->
     <label>Unit Price</label>
-    <input 
-      type="number" 
-      [(ngModel)]="newItem.unit_price"
-      placeholder="Enter price"
-    />
+    <input type="number" [(ngModel)]="newItem.unit_price" placeholder="Enter price" />
 
-    <!-- Image Upload -->
     <label>Product Image</label>
     <input type="file" (change)="onImageSelect($event)" />
 
-    <!-- Preview Image -->
-    <img *ngIf="newItem.previewUrl"
+    <img
+      *ngIf="newItem.previewUrl"
       [src]="newItem.previewUrl"
       class="preview-img"
     />
 
-    <!-- Popup Buttons -->
     <div class="popup-actions">
-<button class="save-btn" 
-        [disabled]="isSubmitting" 
+      <button class="save-btn" 
+        [disabled]="isSubmitting"
         (click)="submitPopup()">
-
-  {{ isSubmitting ? (popupMode === 'add' ? 'Saving...' : 'Updating...') 
-                  : (popupMode === 'add' ? 'Save' : 'Update') }}
-
-</button>
-
+        {{ isSubmitting ? (popupMode === 'add' ? 'Saving...' : 'Updating...') : (popupMode === 'add' ? 'Save' : 'Update') }}
+      </button>
 
       <button class="close-btn" (click)="closePopup()">Cancel</button>
     </div>
