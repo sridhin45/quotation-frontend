@@ -1,11 +1,18 @@
-/* MAIN CONTAINER */
+/* ========================================================
+   OUTER CONTAINER
+======================================================== */
 .items-container {
-  padding: 22px;
-  background: #f9fafb;
-  min-height: 100vh;
+  max-width: 100%;
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  margin: 20px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
 }
 
-/* HEADER BAR */
+/* ========================================================
+   TOP BAR
+======================================================== */
 .top-bar {
   display: flex;
   justify-content: space-between;
@@ -13,49 +20,18 @@
   margin-bottom: 18px;
 }
 
-.title {
+.top-bar h2 {
   font-size: 22px;
   font-weight: 600;
-  color: #1e293b;
+  color: #222;
 }
 
-/* SEARCH BOX */
-.search-wrapper {
-  width: 260px;
-  position: relative;
-  margin-bottom: 15px;
-}
-
-.search-icon {
-  position: absolute;
-  top: 10px;
-  left: 12px;
-  font-size: 18px;
-  color: #64748b;
-}
-
-.search-box {
-  width: 100%;
-  padding: 9px 12px 9px 38px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
-  background: #fff;
-  font-size: 14px;
-  transition: 0.2s;
-}
-
-.search-box:focus {
-  outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
-}
-
-/* BUTTONS */
+/* ADD BUTTON */
 .add-btn {
-  background: #2563eb;
+  background: #4a74f0;
   color: #fff;
   border: none;
-  padding: 9px 16px;
+  padding: 10px 18px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
@@ -63,64 +39,83 @@
 }
 
 .add-btn:hover {
-  background: #1d4ed8;
+  background: #3a5fd3;
 }
 
-/* TABLE DESIGN */
-.table-wrapper {
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid #e2e8f0;
+/* ========================================================
+   SEARCH BAR
+======================================================== */
+.search-box {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
 }
 
-.item-table {
+.search-box:focus {
+  border-color: #4a74f0;
+  box-shadow: 0 0 5px rgba(74, 116, 240, 0.4);
+}
+
+/* ========================================================
+   TABLE STYLE
+======================================================== */
+table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.item-table thead {
-  background: #f1f5f9;
-}
-
-.item-table th, .item-table td {
+thead th {
+  background: #4a74f0;
+  color: #fff;
   padding: 12px;
   font-size: 14px;
-  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
 }
 
-.name-col {
-  font-weight: 500;
-  color: #334155;
+tbody tr {
+  background: #f8f9ff;
+  border-bottom: 1px solid #e6e6e6;
+  transition: 0.2s;
 }
 
-.center {
-  text-align: center;
+tbody tr:hover {
+  background: #eef1ff;
 }
 
-/* ITEM IMAGE */
+td {
+  padding: 12px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* IMAGE */
 .item-img {
   width: 55px;
   height: 55px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
-/* ACTION BUTTONS */
-.action-col {
-  display: flex;
-  gap: 8px;
-}
+/* ========================================================
+   ACTION BUTTONS
+======================================================== */
 
-.edit-btn, .delete-btn {
-  border: none;
-  color: #fff;
+.action-col button {
   padding: 6px 12px;
+  border: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 13px;
+  color: #fff;
+  transition: 0.2s;
 }
 
+/* Edit Button */
 .edit-btn {
   background: #16a34a;
 }
@@ -129,6 +124,7 @@
   background: #15803d;
 }
 
+/* Delete Button */
 .delete-btn {
   background: #dc2626;
 }
@@ -137,7 +133,38 @@
   background: #b91c1c;
 }
 
-/* POPUP OVERLAY */
+/* ========================================================
+   RESPONSIVE TABLE
+======================================================== */
+@media (max-width: 768px) {
+  thead {
+    display: none;
+  }
+
+  tbody tr {
+    display: block;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 5px;
+    border-bottom: none;
+  }
+
+  tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #222;
+  }
+}
+
+/* ========================================================
+   POPUP OVERLAY
+======================================================== */
 .popup-overlay {
   position: fixed;
   top: 0;
@@ -157,40 +184,38 @@
   width: 360px;
   padding: 22px;
   border-radius: 12px;
-  animation: fadeIn 0.2s ease-out;
   box-shadow: 0px 5px 25px rgba(0,0,0,0.25);
+  animation: fadeIn 0.25s ease-out;
 }
 
 .popup-box h3 {
-  margin-top: 0;
-  margin-bottom: 14px;
   text-align: center;
+  margin-bottom: 18px;
   font-weight: 600;
-  color: #1e293b;
+  color: #222;
 }
 
-/* INPUTS */
+/* POPUP INPUT FIELDS */
 .popup-box input[type="text"],
 .popup-box input[type="number"] {
   width: 100%;
-  padding: 9px;
-  margin-top: 6px;
-  margin-bottom: 12px;
+  padding: 10px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
-  font-size: 14px;
+  margin-bottom: 14px;
+  transition: 0.2s;
 }
 
-.popup-box input[type="file"] {
-  margin-top: 6px;
+.popup-box input:focus {
+  border-color: #4a74f0;
+  box-shadow: 0 0 5px rgba(74, 116, 240, 0.3);
 }
 
-/* PREVIEW IMAGE */
 .preview-img {
   width: 120px;
   height: 120px;
-  object-fit: cover;
   border-radius: 8px;
+  object-fit: cover;
   margin-top: 12px;
   display: block;
   margin-left: auto;
@@ -202,37 +227,38 @@
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  margin-top: 20px;
 }
 
-.save-btn, .close-btn {
+.save-btn,
+.close-btn {
   flex: 1;
   padding: 10px;
   border: none;
   border-radius: 8px;
-  color: #fff;
   cursor: pointer;
+  color: #fff;
   font-size: 14px;
+  transition: 0.2s;
 }
 
 .save-btn {
-  background: #2563eb;
+  background: #4a74f0;
 }
 
 .save-btn:hover {
-  background: #1d4ed8;
+  background: #3a5fd3;
 }
 
 .close-btn {
-  background: #ef4444;
+  background: #dc2626;
 }
 
 .close-btn:hover {
-  background: #dc2626;
+  background: #b91c1c;
 }
 
 /* ANIMATION */
 @keyframes fadeIn {
-  from { transform: scale(0.85); opacity: 0; }
+  from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
