@@ -7,78 +7,52 @@ import { Observable } from 'rxjs';
 })
 export class QuotationService {
 
-  private baseUrl = "https://quotation-backend-1-eewh.onrender.com";
+  private baseUrl = 'https://quotation-backend-3.onrender.com';
 
   constructor(private http: HttpClient) {}
 
-  createQuotation(formData: FormData) {
-    return this.http.post(`${this.baseUrl}/quotations`, formData);
+  // ================= QUOTATIONS =================
+
+  createQuotation(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/quotations/`, formData);
   }
 
-  getQuotations() {
-    return this.http.get(`${this.baseUrl}/quotations`);
+  getQuotations(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/quotations/`);
   }
 
-  getQuotation(id: number) {
-    return this.http.get(`${this.baseUrl}/quotations/${id}`);
+  getQuotation(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/quotations/${id}`);
   }
 
-  downloadPDF(id: number) {
-    return this.http.get(`${this.baseUrl}/quotations/${id}/pdf`, {
-      responseType: 'blob'
-    });
+  updateQuotation(id: number, formData: FormData): Observable<any> {
+    return this.http.patch<any>(`${this.baseUrl}/quotations/${id}`, formData);
   }
 
-  getCustomers() {
-    return this.http.get<any[]>(`${this.baseUrl}/customers`);
-  }
-  
-updateQuotation(id: number, formData: FormData) {
-  return this.http.put(`${this.baseUrl}/quotations/${id}`, formData);
-}
-
-deleteQuotation(id: number) {
-  return this.http.delete(`${this.baseUrl}/quotations/${id}`);
-}
-
-searchItems(query: string) {
-  return this.http.get<any[]>(`${this.baseUrl}/items/`);
-}
-
-
-  getAllItems() {
-    return this.http.get<any[]>(`${this.baseUrl}/items`);
-  }
-  
-
-
-
-  // 🔹 Get all items
-
-
-  // 🔹 Create item (name + price only)
-  createItem(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/items`, data);
+  deleteQuotation(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/quotations/${id}`);
   }
 
-  // 🔹 Update item
-  updateItem(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/items/${id}`, data);
+  // ================= ITEMS =================
+
+  getAllItems(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/items/`);
   }
 
-  // 🔹 Delete item
+  searchItems(query: string): Observable<any[]> {
+    // backend currently returns all items
+    return this.http.get<any[]>(`${this.baseUrl}/items/`);
+  }
+
+  createItem(formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/items/`, formData);
+  }
+
+  updateItem(id: number, formData: FormData): Observable<any> {
+    return this.http.patch<any>(`${this.baseUrl}/items/${id}`, formData);
+  }
+
   deleteItem(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/items/${id}`);
-  }
-
-  // 🔹 (Optional) Create item with image
-  createItemWithImage(formData: FormData): Observable<any> {
-    return this.http.post(`${this.baseUrl}/items/upload`, formData);
-  }
-
-  // 🔹 (Optional) Update item with image
-  updateItemWithImage(id: number, formData: FormData): Observable<any> {
-    return this.http.put(`${this.baseUrl}/items/upload/${id}`, formData);
+    return this.http.delete<any>(`${this.baseUrl}/items/${id}`);
   }
 }
-

@@ -1,9 +1,10 @@
-<h2 style="text-align: center; color: green;">
+<h2 style="text-align:center; color:green">
   {{ mode === 'add' ? 'Create Quotation' : 'Edit Quotation' }}
 </h2>
 
 <form (ngSubmit)="submit()" class="quote-form">
-  
+
+  <!-- ================= HEADER ================= -->
   <div class="section">
     <div class="row">
       <div class="field">
@@ -28,91 +29,110 @@
     </div>
   </div>
 
-  <hr>
+  <hr />
 
-  <!-- ITEM LOOP -->
+  <!-- ================= ITEMS ================= -->
   <div *ngFor="let item of items; let i = index" class="item-card">
+
     <h4>
       Item {{ i + 1 }}
-
-      <button type="button" class="icon-btn delete" *ngIf="items.length > 1" (click)="removeItem(i)">
+      <button
+        type="button"
+        class="icon-btn delete"
+        *ngIf="items.length > 1"
+        (click)="removeItem(i)">
         <mat-icon>delete</mat-icon>
       </button>
     </h4>
 
     <div class="row">
 
-      <!-- NAME + AUTOCOMPLETE -->
+      <!-- ITEM NAME + AUTOCOMPLETE -->
       <div class="field large">
-        <label>Name Of The Item</label>
+        <label>Item Name</label>
 
-        <input 
+        <input
           type="text"
-          [(ngModel)]="item.description"
+          [(ngModel)]="item.item_name"
           name="item{{i}}"
           (input)="onItemSearch($event, i)"
           (focus)="focusedIndex = i"
-          autocomplete="off"
-        />
+          autocomplete="off" />
 
-  <ul class="suggestion-box"
-    *ngIf="focusedIndex === i && itemSuggestions[i]?.length">
+        <ul
+          class="suggestion-box"
+          *ngIf="focusedIndex === i && itemSuggestions[i]?.length">
 
-  <li *ngFor="let s of itemSuggestions[i]"
-      (mousedown)="selectItemMaster(s, i)">
+          <li
+            *ngFor="let s of itemSuggestions[i]"
+            (mousedown)="selectItemMaster(s, i)">
 
-    <img *ngIf="s.image"
-         [src]="'https://quotation-backend-e2jd.onrender.com/uploads/' + s.image"
-         width="35" height="35"
-         style="object-fit: cover; margin-right: 8px;" />
+    <img
+  *ngIf="s.image"
+  [src]="s.image"
+  width="35" height="35"
+  style="object-fit:cover; margin-right:8px" />
 
-    {{ s.name }} — ₹{{ s.unit_price }}
-  </li>
-</ul>
 
+            {{ s.name }} — ₹{{ s.unit_price }}
+          </li>
+        </ul>
       </div>
 
       <!-- QTY -->
       <div class="field small">
         <label>Qty</label>
-        <input type="number" [(ngModel)]="item.quantity" name="q{{i}}" min="1" />
+        <input
+          type="number"
+          [(ngModel)]="item.qty"
+          name="qty{{i}}"
+          min="1"
+          (input)="recalculate(i)" />
       </div>
 
-      <!-- UNIT PRICE -->
+      <!-- PRICE -->
       <div class="field small">
         <label>Unit Price</label>
-        <input type="number" [(ngModel)]="item.unit_price" name="p{{i}}" min="0" />
+        <input
+          type="number"
+          [(ngModel)]="item.price"
+          name="price{{i}}"
+          min="0"
+          (input)="recalculate(i)" />
       </div>
 
       <!-- IMAGE -->
-      <div class="field">
-        <label>Product Image</label>
+   <!-- IMAGE -->
+<div class="field">
+  <label>Product Image</label>
 
-        <img *ngIf="item.image && !item.imageFile"
-             [src]="'https://quotation-backend-1-eewh.onrender.com/uploads/' + item.image"
-             width="80" height="80"
-             style="object-fit: cover; border-radius: 6px;" />
+  <!-- Preview (new upload) -->
+  <img *ngIf="item.previewUrl"
+       [src]="item.previewUrl"
+       width="80" height="80"
+       style="object-fit:cover; border-radius:6px" />
 
-        <img *ngIf="item.imageFile"
-             [src]="previewImage(item.imageFile)"
-             width="80" height="80"
-             style="object-fit: cover; border-radius: 6px;" />
+  <!-- Existing Cloudinary image -->
+  <img *ngIf="item.image && !item.previewUrl"
+       [src]="item.image"
+       width="80" height="80"
+       style="object-fit:cover; border-radius:6px" />
 
-        <input type="file" (change)="onItemImageSelected($event, i)" />
-      </div>
+  <input type="file" (change)="onItemImageSelected($event, i)" />
+</div>
+
 
     </div>
 
-    <hr>
+    <hr />
   </div>
 
-  <!-- ADD ITEM BUTTON -->
+  <!-- ================= ACTIONS ================= -->
   <button type="button" class="add-btn" (click)="addItem()">
     <mat-icon>add</mat-icon>
     Add Item
   </button>
 
-  <!-- SUBMIT BUTTON -->
   <button type="submit" class="submit-btn" [disabled]="isSubmitting">
     <mat-icon>{{ mode === 'add' ? 'send' : 'save' }}</mat-icon>
     {{ mode === 'add' ? 'Create Quotation' : 'Update Quotation' }}

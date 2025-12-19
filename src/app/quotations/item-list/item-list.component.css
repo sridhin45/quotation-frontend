@@ -262,3 +262,22 @@ td {
   from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+.icon-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.icon-btn.edit mat-icon {
+  color: #2563eb; /* blue */
+}
+
+.icon-btn.delete mat-icon {
+  color: #dc2626; /* red */
+}
+
+.icon-btn:hover {
+  background: #f3f4f6;
+}

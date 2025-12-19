@@ -1,23 +1,24 @@
 <div class="items-container">
 
+  <!-- ================= TOP BAR ================= -->
   <div class="top-bar">
     <h2 class="title">Item List</h2>
     <button class="add-btn" (click)="openPopup()">+ Add Item</button>
   </div>
 
-  <!-- SEARCH BOX -->
+  <!-- ================= SEARCH ================= -->
   <div class="search-wrapper">
     <i class="ri-search-line search-icon"></i>
     <input
       type="text"
+      class="search-box"
       placeholder="Search items..."
       [(ngModel)]="searchText"
       (input)="applySearch()"
-      class="search-box"
     />
   </div>
 
-  <!-- TABLE -->
+  <!-- ================= TABLE ================= -->
   <div class="table-wrapper">
     <table class="item-table">
       <thead>
@@ -25,22 +26,41 @@
           <th>Image</th>
           <th>Item Name</th>
           <th>Unit Price</th>
-          <th class="center">Action</th>
+          <th class="center">Actions</th>
         </tr>
       </thead>
 
       <tbody>
         <tr *ngFor="let i of filteredItems">
           <td>
-            <img [src]="imageBase + i.image" class="item-img" />
+<img
+  *ngIf="i.image"
+  [src]="i.image"
+  [style.width.px]="70"
+  [style.height.px]="70"
+  style="object-fit: cover; border-radius: 6px;"
+/>
+
           </td>
 
           <td class="name-col">{{ i.name }}</td>
           <td>₹ {{ i.unit_price }}</td>
 
-          <td class="action-col">
-            <button class="edit-btn" (click)="openEditPopup(i)">Edit</button>
-            <button class="delete-btn" (click)="deleteItem(i.id)">Delete</button>
+<td class="action-col">
+  <button class="icon-btn edit" (click)="openEditPopup(i)" mat-icon-button>
+    <mat-icon>edit</mat-icon>
+  </button>
+
+  <button class="icon-btn delete" (click)="deleteItem(i.id)" mat-icon-button>
+    <mat-icon>delete</mat-icon>
+  </button>
+</td>
+
+        </tr>
+
+        <tr *ngIf="filteredItems.length === 0">
+          <td colspan="4" class="empty">
+            No items found
           </td>
         </tr>
       </tbody>
@@ -49,37 +69,61 @@
 
 </div>
 
-<!-- =======================
-      ADD / EDIT POPUP
-======================= -->
+<!-- ================= POPUP ================= -->
 <div class="popup-overlay" *ngIf="showPopup">
   <div class="popup-box">
 
-    <h3>{{ popupMode === 'add' ? 'Add New Item' : 'Edit Item' }}</h3>
+    <h3>
+      {{ popupMode === 'add' ? 'Add New Item' : 'Edit Item' }}
+    </h3>
 
+    <!-- NAME -->
     <label>Item Name</label>
-    <input type="text" [(ngModel)]="newItem.name" placeholder="Enter item name" />
-
-    <label>Unit Price</label>
-    <input type="number" [(ngModel)]="newItem.unit_price" placeholder="Enter price" />
-
-    <label>Product Image</label>
-    <input type="file" (change)="onImageSelect($event)" />
-
-    <img
-      *ngIf="newItem.previewUrl"
-      [src]="newItem.previewUrl"
-      class="preview-img"
+    <input
+      type="text"
+      [(ngModel)]="newItem.name"
+      placeholder="Enter item name"
     />
 
+    <!-- PRICE -->
+    <label>Unit Price</label>
+    <input
+      type="number"
+      [(ngModel)]="newItem.unit_price"
+      placeholder="Enter unit price"
+      min="1"
+    />
+
+    <!-- IMAGE -->
+<!-- IMAGE -->
+<label>Product Image</label>
+
+<div class="image-box">
+  <img
+    *ngIf="newItem.previewUrl"
+    [src]="newItem.previewUrl"
+    class="preview-img"
+  />
+</div>
+
+<input type="file" (change)="onImageSelect($event)" />
+
+    <!-- ACTIONS -->
     <div class="popup-actions">
-      <button class="save-btn" 
+      <button
+        class="save-btn"
         [disabled]="isSubmitting"
-        (click)="submitPopup()">
-        {{ isSubmitting ? (popupMode === 'add' ? 'Saving...' : 'Updating...') : (popupMode === 'add' ? 'Save' : 'Update') }}
+        (click)="submitPopup()"
+      >
+        {{ isSubmitting
+          ? (popupMode === 'add' ? 'Saving...' : 'Updating...')
+          : (popupMode === 'add' ? 'Save' : 'Update')
+        }}
       </button>
 
-      <button class="close-btn" (click)="closePopup()">Cancel</button>
+      <button class="close-btn" (click)="closePopup()">
+        Cancel
+      </button>
     </div>
 
   </div>

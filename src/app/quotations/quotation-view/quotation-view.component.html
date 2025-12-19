@@ -30,7 +30,7 @@
     </div>
     <div class="row">
       <span class="label">Date:</span>
-      <span class="value">{{ quotation?.date | date:'dd-MMM-yyyy' }}</span>
+      <span class="value">{{ quotation?.created_at | date:'dd-MMM-yyyy' }}</span>
     </div>
     <div class="row">
       <span class="label">Customer:</span>
@@ -51,7 +51,7 @@
     <thead>
       <tr>
         <th>Sl No</th>
-        <th>Description</th>
+        <th>Item Name</th>
         <th>Image</th>
         <th>Qty</th>
         <th>Unit Price</th>
@@ -62,27 +62,35 @@
     <tbody>
       <tr *ngFor="let item of quotation?.items; let i = index">
         <td>{{ i + 1 }}</td>
-        <td>{{ item.description }}</td>
-        <td>
-<img 
-  class="item-img"
-  [src]="'https://quotation-backend-1-eewh.onrender.com/uploads/' + item.image"
-  alt="item image"
-/>
+        <td>{{ item.item.name }}</td>
+<td>
+  <img
+    *ngIf="item.item.image"
+    class="item-img"
+    [src]="item.item.image"
+    alt="Item image"
+     [style.width.px]="70"
+  [style.height.px]="70"
+  style="object-fit: cover; border-radius: 6px;"
+  />
 
-        </td>
-        <td>{{ item.quantity }}</td>
-        <td>{{ item.unit_price | number:'1.2-2' }}</td>
-        <td>{{ item.line_total | number:'1.2-2' }}</td>
-      </tr>
+  <span *ngIf="!item.item.image">—</span>
+</td>
+
+
+        <td>{{ item.qty }}</td>
+        <td>{{ item.price | number:'1.2-2' }}</td>
+<td>{{ item.qty * item.price | number:'1.2-2' }}</td>
+</tr>
     </tbody>
   </table>
 
   <!-- TOTAL -->
-  <div class="total-box">
-    <span class="label">TOTAL:</span>
-    <span class="value">₹ {{ quotation?.total }}</span>
-  </div>
+<div class="total-box">
+  <span class="label">TOTAL:</span>
+  <span class="value">₹ {{ getGrandTotal() | number:'1.2-2' }}</span>
+</div>
+
 
 
   <!-- TOTAL -->

@@ -43,21 +43,20 @@ export class QuotationViewComponent implements OnInit {
     const pageWidth = doc.internal.pageSize.getWidth();
 
     // ---------- 1️⃣ LOAD ALL ITEM IMAGES ----------
-    const itemImages = await Promise.all(
-      q.items.map((item: any) =>
-        new Promise(resolve => {
-          if (!item.image) return resolve(null);
+const itemImages = await Promise.all(
+  q.items.map((it: any) =>
+    new Promise(resolve => {
+      if (!it.item?.image) return resolve(null);
 
-          const img = new Image();
-          img.crossOrigin = "anonymous";
-img.src = `https://quotation-backend-1-eewh.onrender.com/uploads/${item.image}`;
-img.crossOrigin = "anonymous";
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+img.src = it.item.image;
+      img.onload = () => resolve(img);
+      img.onerror = () => resolve(null);
+    })
+  )
+);
 
-          img.onload = () => resolve(img);
-          img.onerror = () => resolve(null);
-        })
-      )
-    );
 
     // ---------- 2️⃣ HEADER ----------
     const logo = new Image();
@@ -86,7 +85,7 @@ img.crossOrigin = "anonymous";
       columnStyles: { 0: { cellWidth: 150 } },
       body: [
         ["Quotation No.:", q.quote_no],
-        ["Date:", new Date(q.date).toLocaleDateString()],
+["Date:", new Date(q.created_at).toLocaleDateString()],
         ["Valid Till:", q.valid_till || "-"],
         ["Customer Name:", q.customer_name],
         ["Customer Phone:", q.customer_phone]
@@ -94,14 +93,14 @@ img.crossOrigin = "anonymous";
     });
 
     // ---------- 5️⃣ ITEMS TABLE ----------
-    const itemTable = q.items.map((item: any, index: number) => [
-      index + 1,
-      item.description,
-      "",
-      item.quantity + " NOS",
-      item.unit_price,
-      item.line_total
-    ]);
+const itemTable = q.items.map((it: any, index: number) => [
+  index + 1,
+  it.item.name,
+  "",
+  it.qty,
+  it.price,
+  it.total
+]);
 
     autoTable(doc, {
       startY: (doc as any).lastAutoTable.finalY + 20,
@@ -146,7 +145,7 @@ img.crossOrigin = "anonymous";
 
     doc.setFontSize(12);
     doc.setFont("Helvetica", "bold");
-    doc.text(`Total: ₹${q.total}/-`, 40, totalY);
+doc.text(`Total: ₹${this.getGrandTotal()}/-`, 40, totalY);
 
     // ---------- 7️⃣ BANK DETAILS ----------
     const bankY = totalY + 30;
@@ -208,5 +207,15 @@ img.crossOrigin = "anonymous";
     error: (err) => alert("Delete failed")
   });
 }
+
+getGrandTotal(): number {
+  if (!this.quotation?.items) return 0;
+
+  return this.quotation.items.reduce(
+    (sum: number, it: any) => sum + (it.qty * it.price),
+    0
+  );
+}
+
 
 }

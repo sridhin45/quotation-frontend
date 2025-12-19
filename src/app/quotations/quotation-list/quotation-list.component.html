@@ -29,9 +29,10 @@
       <tr *ngFor="let q of filteredQuotations; let i = index">
         <td>{{ i + 1 }}</td>
         <td>{{ q.quote_no }}</td>
-        <td>{{ q.date | date:'dd-MMM-yyyy' }}</td>
+       <td>{{ q.created_at | date:'dd-MMM-yyyy' }}</td>
+
         <td>{{ q.customer_name }}</td>
-        <td>₹ {{ q.total }}</td>
+<td>₹ {{ getGrandTotal(q) }}</td>
 
         <td class="action-cell">
 

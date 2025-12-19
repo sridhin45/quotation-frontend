@@ -2,21 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { QuotationService } from '../../services/quotation.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-item-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,  MatIconModule,
+    MatButtonModule,],
   templateUrl: './item-list.component.html',
-  styleUrl: './item-list.component.css'
+  styleUrls: ['./item-list.component.css']
 })
 export class ItemListComponent implements OnInit {
 
-  imageBase = "https://quotation-backend-1-eewh.onrender.com/uploads/";
+  // ✅ UPDATED BACKEND
+// imageBase = 'https://quotation-backend-3.onrender.com/uploads/items/';
 
   items: any[] = [];
   filteredItems: any[] = [];
-  searchText: string = '';
+  searchText = '';
 
   showPopup = false;
   popupMode: 'add' | 'edit' = 'add';
@@ -36,18 +40,18 @@ export class ItemListComponent implements OnInit {
     this.loadItems();
   }
 
-  // ========================= LOAD ITEMS =========================
+  // ================= LOAD ITEMS =================
   loadItems() {
     this.itemService.getAllItems().subscribe({
-      next: (res) => {
+      next: (res: any[]) => {
         this.items = res;
         this.filteredItems = res;
       },
-      error: (err) => console.error("Load failed", err)
+      error: err => console.error('Load failed', err)
     });
   }
 
-  // ========================= SEARCH FILTER =========================
+  // ================= SEARCH =================
   applySearch() {
     const q = this.searchText.toLowerCase();
     this.filteredItems = this.items.filter(i =>
@@ -55,20 +59,14 @@ export class ItemListComponent implements OnInit {
     );
   }
 
-  // ========================= OPEN ADD POPUP =========================
+  // ================= POPUP =================
   openPopup() {
     this.popupMode = 'add';
     this.editItemId = null;
-    this.newItem = {
-      name: '',
-      unit_price: null,
-      imageFile: null,
-      previewUrl: ''
-    };
+    this.resetForm();
     this.showPopup = true;
   }
 
-  // ========================= OPEN EDIT POPUP =========================
   openEditPopup(item: any) {
     this.popupMode = 'edit';
     this.editItemId = item.id;
@@ -77,7 +75,7 @@ export class ItemListComponent implements OnInit {
       name: item.name,
       unit_price: item.unit_price,
       imageFile: null,
-      previewUrl: item.image ? this.imageBase + item.image : ''
+previewUrl: item.image || ''
     };
 
     this.showPopup = true;
@@ -85,111 +83,118 @@ export class ItemListComponent implements OnInit {
 
   closePopup() {
     this.showPopup = false;
+    this.isSubmitting = false;
   }
 
-  // ========================= IMAGE SELECT =========================
-  onImageSelect(event: any) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    this.newItem.imageFile = file;
-
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.newItem.previewUrl = reader.result as string;
+  resetForm() {
+    this.newItem = {
+      name: '',
+      unit_price: null,
+      imageFile: null,
+      previewUrl: ''
     };
-    reader.readAsDataURL(file);
   }
 
-  // ========================= SAVE NEW ITEM =========================
-  saveNewItem() {
-    if (!this.newItem.name) {
-      alert("Name is required");
-      return;
+onImageSelect(event: any) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  this.newItem.imageFile = file;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    this.newItem.previewUrl = reader.result as string;
+  };
+  reader.readAsDataURL(file);
+}
+
+
+  // ================= ADD ITEM =================
+saveNewItem() {
+  if (!this.validate()) return;
+
+  const fd = new FormData();
+  fd.append('name', this.newItem.name);
+  fd.append('unit_price', String(this.newItem.unit_price));
+
+  if (this.newItem.imageFile) {
+    fd.append('image', this.newItem.imageFile);
+  }
+
+  this.isSubmitting = true;
+
+  this.itemService.createItem(fd).subscribe({
+    next: () => {
+      alert('Item added successfully');
+      this.closePopup();
+      this.loadItems();
+    },
+    error: err => {
+      this.isSubmitting = false;
+      alert(err.error?.detail || 'Create failed');
+    }
+  });
+}
+
+
+  // ================= UPDATE ITEM =================
+  updateItem() {
+    if (!this.validate(false)) return;
+
+    const fd = new FormData();
+    fd.append('name', this.newItem.name);
+    fd.append('unit_price', String(this.newItem.unit_price));
+
+    if (this.newItem.imageFile) {
+      fd.append('image', this.newItem.imageFile);
     }
 
-    if (!this.newItem.unit_price || this.newItem.unit_price <= 0) {
-      alert("Unit price must be greater than 0");
-      return;
-    }
-
-    if (!this.newItem.imageFile) {
-      alert("Image is required for new item");
-      return;
-    }
-
-    if (this.isSubmitting) return;
     this.isSubmitting = true;
 
-    const formData = new FormData();
-    formData.append("name", this.newItem.name);
-    formData.append("unit_price", String(this.newItem.unit_price));
-    formData.append("image", this.newItem.imageFile);
-
-    this.itemService.createItem(formData).subscribe({
+    this.itemService.updateItem(this.editItemId!, fd).subscribe({
       next: () => {
-        alert("Item added successfully!");
-        this.isSubmitting = false;
+        alert('Item updated successfully');
         this.closePopup();
         this.loadItems();
       },
-      error: (err) => {
+      error: err => {
         this.isSubmitting = false;
-        alert("Error: " + (err.error?.detail || err.message));
+        alert(err.error?.detail || 'Update failed');
       }
     });
   }
 
-  // ========================= UPDATE ITEM =========================
-  updateItem() {
-    if (!this.newItem.name) {
-      alert("Name is required");
-      return;
-    }
-
-    if (this.newItem.unit_price === null || this.newItem.unit_price <= 0) {
-      alert("Unit price must be greater than 0");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("name", this.newItem.name);
-    formData.append("unit_price", String(this.newItem.unit_price));
-
-    // Only upload new image if user selected one
-    if (this.newItem.imageFile) {
-      formData.append("image", this.newItem.imageFile);
-    }
-
-    this.itemService.updateItem(this.editItemId!, formData).subscribe({
-      next: () => {
-        alert("Item updated successfully!");
-        this.closePopup();
-        this.loadItems();
-        this.editItemId = null;
-      },
-      error: (err) => {
-        alert("Update failed: " + (err.error?.detail || err.message));
-      }
-    });
-  }
-
-  // ========================= DELETE ITEM =========================
+  // ================= DELETE =================
   deleteItem(id: number) {
-    if (!confirm("Delete this item?")) return;
+    if (!confirm('Delete this item?')) return;
 
     this.itemService.deleteItem(id).subscribe({
       next: () => this.loadItems(),
-      error: () => alert("Delete failed")
+      error: () => alert('Delete failed (item used in quotation)')
     });
   }
 
-  // ========================= POPUP SUBMIT HANDLER =========================
+  // ================= SUBMIT =================
   submitPopup() {
-    if (this.popupMode === 'add') {
-      this.saveNewItem();
-    } else {
-      this.updateItem();
+    this.popupMode === 'add'
+      ? this.saveNewItem()
+      : this.updateItem();
+  }
+
+  // ================= VALIDATION =================
+  validate(requireImage = true): boolean {
+    if (!this.newItem.name.trim()) {
+      alert('Item name required');
+      return false;
     }
+    if (!this.newItem.unit_price || this.newItem.unit_price <= 0) {
+      alert('Unit price must be > 0');
+      return false;
+    }
+    if (requireImage && !this.newItem.imageFile) {
+      alert('Image is required');
+      return false;
+    }
+    return true;
   }
 }
