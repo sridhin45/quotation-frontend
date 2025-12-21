@@ -9,6 +9,9 @@
     "test": "ng test"
   },
   "private": true,
+  "engines": {
+    "node": "18.x"
+  },
   "dependencies": {
     "@angular/cdk": "^19.2.19",
     "@angular/common": "^19.2.0",
