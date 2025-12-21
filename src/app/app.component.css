@@ -140,3 +140,30 @@
     box-shadow: none !important;
   }
 }
+
+.top-actions{
+  display: flex;
+  gap: 10px;
+}
+
+.top-btn{
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #1976d2;
+  color: white;
+  font-size: 14px;
+}
+
+.top-btn:hover{
+  background:#3867d6;
+}
+
+.logout{
+  background: #eb3b5a;
+}
+
+.logout:hover{
+  background:#c23616;
+}

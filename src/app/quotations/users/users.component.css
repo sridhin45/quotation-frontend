@@ -1,0 +1,62 @@
+.user-page {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  max-width: 900px;
+  margin: 30px auto;
+}
+
+h2 {
+  margin-bottom: 15px;
+  font-size: 22px;
+  color: #333;
+}
+
+.loading,
+.empty {
+  text-align: center;
+  color: #777;
+  font-size: 15px;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.user-table th {
+  background: #1976d2;
+  color: white;
+  padding: 12px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.user-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.user-table tr:hover {
+  background: #f8faff;
+}
+
+.delete-btn {
+  background: #ff4757;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  transition: 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  background: #d63031;
+  transform: scale(1.05);
+}

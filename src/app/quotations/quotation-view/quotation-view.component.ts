@@ -218,4 +218,50 @@ getGrandTotal(): number {
 }
 
 
+numberToWords(amount: number): string {
+  if (amount === 0) return "Zero Rupees";
+
+  const words: any = [
+    "", "One", "Two", "Three", "Four", "Five", "Six",
+    "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve",
+    "Thirteen", "Fourteen", "Fifteen", "Sixteen",
+    "Seventeen", "Eighteen", "Nineteen"
+  ];
+
+  const tens: any = [
+    "", "", "Twenty", "Thirty", "Forty", "Fifty",
+    "Sixty", "Seventy", "Eighty", "Ninety"
+  ];
+
+  const units = ["Crore", "Lakh", "Thousand", "Hundred"];
+  const values = [10000000, 100000, 1000, 100];
+
+  let num = Math.floor(amount);
+  let paise = Math.round((amount - num) * 100);
+  let result = "";
+
+  for (let i = 0; i < values.length; i++) {
+    let div = Math.floor(num / values[i]);
+    if (div > 0) {
+      result += this.convertBelowHundred(div, words, tens) + " " + units[i] + " ";
+      num %= values[i];
+    }
+  }
+
+  if (num > 0) result += this.convertBelowHundred(num, words, tens) + " ";
+
+  result += "Rupees";
+
+  if (paise > 0)
+    result += " and " + this.convertBelowHundred(paise, words, tens) + " Paise";
+
+  return result.trim();
+}
+
+private convertBelowHundred(num: number, words: any, tens: any): string {
+  if (num < 20) return words[num];
+  return tens[Math.floor(num / 10)] + (num % 10 ? " " + words[num % 10] : "");
+}
+
+
 }

@@ -86,10 +86,17 @@
   </table>
 
   <!-- TOTAL -->
-<div class="total-box">
-  <span class="label">TOTAL:</span>
-  <span class="value">₹ {{ getGrandTotal() | number:'1.2-2' }}</span>
+<div class="total-wrapper">
+  <div class="total-box">
+    <span class="label">TOTAL:</span>
+    <span class="value">₹ {{ getGrandTotal() | number:'1.2-2' }}</span>
+  </div>
+
+  <p class="amount-words">
+    {{ numberToWords(getGrandTotal()) }}
+  </p>
 </div>
+
 
 
 

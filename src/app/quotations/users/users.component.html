@@ -1,0 +1,28 @@
+<div class="user-page">
+
+  <h2>Users</h2>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+
+  <table *ngIf="users.length" class="user-table">
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+      <th>Action</th>
+    </tr>
+
+    <tr *ngFor="let u of users">
+      <td>{{u.id}}</td>
+      <td>{{u.username}}</td>
+      <td>
+       
+          <button class="icon-btn delete" (click)="deleteUser(u.id)" mat-icon-button>
+    <mat-icon>delete</mat-icon>
+  </button>
+      </td>
+    </tr>
+  </table>
+
+  <p *ngIf="!loading && !users.length" class="empty">No users found</p>
+
+</div>

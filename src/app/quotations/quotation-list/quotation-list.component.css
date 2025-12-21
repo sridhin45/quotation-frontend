@@ -48,10 +48,12 @@
 table {
   width: 100%;
   border-collapse: collapse;
+    border-radius: 8px;
+
 }
 
 thead th {
-  background: #4a74f0;
+  background: #1976d2;
   color: #fff;
   padding: 12px;
   font-size: 14px;

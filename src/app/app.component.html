@@ -6,6 +6,24 @@
     <img src="assets\celastial.png" alt="Logo" class="top-logo">
     <span class="logo-textl">Quotation System</span>
   </div>
+<div class="top-actions">
+  
+  
+<button class="top-btn">
+  👤 {{ auth.getLoggedUsername() }}
+</button>
+
+
+<button 
+  *ngIf="auth.isLoggedIn()" 
+  (click)="logout()" 
+  class="top-btn logout">
+  Logout
+</button>
+
+
+</div>
+
 
   <!-- <div class="top-right">
     <span class="logo-textl">Welcome</span>
@@ -13,10 +31,10 @@
 </header>
 
 
-  <div class="main-container">
+  <div class="main-container"  >
 
     <!-- SIDEBAR -->
-    <aside class="sidebar">
+    <aside class="sidebar" *ngIf="auth.isLoggedIn()">
       <ul>
 
         <li (click)="goTo('/quotations/add')" 
@@ -41,6 +59,13 @@
 <mat-icon>category</mat-icon>
           Item List
         </li>
+
+        <li (click)="goTo('/users')" 
+    [class.active]="isActive('/users')">
+  <mat-icon>group</mat-icon>
+  Users
+</li>
+
       </ul>
     </aside>
 

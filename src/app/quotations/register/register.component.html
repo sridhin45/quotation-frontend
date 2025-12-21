@@ -1,0 +1,34 @@
+<div class="login-wrapper">
+  <div class="login-card">
+
+    <h2>Create Account</h2>
+
+    <form (ngSubmit)="register()">
+
+      <input [(ngModel)]="username"
+             name="username"
+             placeholder="Username"
+             required>
+
+      <input [(ngModel)]="password"
+             name="password"
+             type="password"
+             placeholder="Password"
+             required>
+
+      <input [(ngModel)]="confirmPassword"
+             name="confirmPassword"
+             type="password"
+             placeholder="Confirm Password"
+             required>
+
+      <button type="submit">Register</button>
+    </form>
+
+    <p class="success" *ngIf="success">{{ success }}</p>
+    <p class="error" *ngIf="error">{{ error }}</p>
+
+    <a routerLink="/login">Already have account? Login</a>
+
+  </div>
+</div>

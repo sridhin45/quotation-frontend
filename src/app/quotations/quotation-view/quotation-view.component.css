@@ -61,6 +61,7 @@
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
+
 }
 
 .items-table th {
@@ -201,4 +202,14 @@
   .top-actions {
     display: none !important;
   }
+}
+.total-wrapper{
+  text-align: right;   /* keeps both aligned with total */
+  margin-top: 5px;
+}
+
+.amount-words{
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 600;
 }

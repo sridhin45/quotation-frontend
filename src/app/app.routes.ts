@@ -1,46 +1,65 @@
 import { Routes } from '@angular/router';
+import { LoginComponent } from './quotations/login/login.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
 
-  // ADD NEW QUOTATION
+  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+
   {
-    path: 'quotations/add',
+    path: 'register',
     loadComponent: () =>
-      import('./quotations/quotation-add/quotation-add.component')
-        .then(m => m.QuotationAddComponent)
+      import('./quotations/register/register.component')
+        .then(m => m.RegisterComponent)
   },
 
-  // EDIT EXISTING QUOTATION
-  {
-    path: 'quotations/edit/:id',
-    loadComponent: () =>
-      import('./quotations/quotation-add/quotation-add.component')
-        .then(m => m.QuotationAddComponent)
-  },
-
-  // LIST PAGE
   {
     path: 'quotations',
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('./quotations/quotation-list/quotation-list.component')
         .then(m => m.QuotationListComponent)
   },
 
-  // VIEW PAGE
+  {
+    path: 'quotations/add',
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import('./quotations/quotation-add/quotation-add.component')
+        .then(m => m.QuotationAddComponent)
+  },
+
+  {
+    path: 'quotations/edit/:id',
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import('./quotations/quotation-add/quotation-add.component')
+        .then(m => m.QuotationAddComponent)
+  },
+
   {
     path: 'quotations/view/:id',
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('./quotations/quotation-view/quotation-view.component')
         .then(m => m.QuotationViewComponent)
   },
 
-    {
+  {
     path: 'quotations/item-list',
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('./quotations/item-list/item-list.component')
         .then(m => m.ItemListComponent)
   },
+  {
+  path:'users',
+  canActivate:[AuthGuard],
+  loadComponent:()=>import('./quotations/users/users.component')
+    .then(m=>m.UsersComponent)
+},
 
-  // DEFAULT ROUTE
-  { path: '**', redirectTo: 'quotations' }
+
+  { path: '**', redirectTo: 'login' }
 ];
