@@ -1,17 +1,20 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './quotations/login/login.component';
 import { AuthGuard } from './auth.guard';
+import { NoAuthGuard } from './no-auth.guard';
 
 export const routes: Routes = [
 
-  { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'quotations', pathMatch: 'full' },
+
+  { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
 
   {
     path: 'register',
     loadComponent: () =>
       import('./quotations/register/register.component')
-        .then(m => m.RegisterComponent)
+      .then(m => m.RegisterComponent),
+    canActivate: [NoAuthGuard]
   },
 
   {
@@ -53,13 +56,14 @@ export const routes: Routes = [
       import('./quotations/item-list/item-list.component')
         .then(m => m.ItemListComponent)
   },
+
   {
-  path:'users',
-  canActivate:[AuthGuard],
-  loadComponent:()=>import('./quotations/users/users.component')
-    .then(m=>m.UsersComponent)
-},
+    path: 'users',
+    canActivate: [AuthGuard],
+    loadComponent: () =>
+      import('./quotations/users/users.component')
+        .then(m => m.UsersComponent)
+  },
 
-
-{ path: '', redirectTo:'quotations', pathMatch:'full' },
+  { path: '**', redirectTo: 'quotations' }
 ];
