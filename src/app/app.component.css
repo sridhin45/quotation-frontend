@@ -141,7 +141,7 @@ html, body {
 }
 
 .top-btn {
-  padding: 6px 14px;
+  padding: 3px 5px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
@@ -181,7 +181,7 @@ html, body {
     position: fixed;
     top: 0;
     left: -260px;                  /* hidden off-canvas */
-    width: 260px;
+    width: 200px;
     height: 100dvh;
     z-index: 300;
     transition: left 0.3s ease;
@@ -215,9 +215,9 @@ html, body {
   }
 
   .topbar {
-    height: 64px;
-    padding: 0 15px;
-    font-size: 16px;
+    height: 60px;
+    padding: 0 10px;
+    font-size: 14px;
   }
 
   .logo-text {
@@ -230,5 +230,40 @@ html, body {
 
   .content {
     padding: 15px;
+  }
+}
+/* ===============================
+   PRINT MODE (HIDE LAYOUT)
+================================*/
+@media print {
+
+  /* Hide navigation UI */
+  .topbar,
+  .sidebar,
+  .menu-btn,
+  .sidebar-overlay {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Expand content to full width */
+  .layout,
+  .main-container,
+  .content {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Remove shadows & fixed effects */
+  * {
+    box-shadow: none !important;
+    position: static !important;
+  }
+
+  /* Improve print text */
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
   }
 }

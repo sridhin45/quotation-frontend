@@ -37,19 +37,24 @@
         <td class="action-cell">
 
           <!-- View -->
-          <button mat-icon-button color="primary" (click)="viewQuotation(q.id)">
-            <mat-icon>visibility</mat-icon>
-          </button>
+       <div class="action-icons">
 
-          <!-- Edit -->
-          <button mat-icon-button color="accent" (click)="goToEdit(q.id)">
-            <mat-icon>edit</mat-icon>
-          </button>
+  <!-- View -->
+  <button class="icon-action view" (click)="viewQuotation(q.id)" title="View">
+    <mat-icon>visibility</mat-icon>
+  </button>
 
-          <!-- Delete -->
-          <button mat-icon-button color="warn" (click)="deleteQuotation(q.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
+  <!-- Edit -->
+  <button class="icon-action edit" (click)="goToEdit(q.id)" title="Edit">
+    <mat-icon>edit</mat-icon>
+  </button>
+
+  <!-- Delete -->
+  <button class="icon-action delete" (click)="deleteQuotation(q.id)" title="Delete">
+    <mat-icon>delete</mat-icon>
+  </button>
+
+</div>
 
         </td>
       </tr>
