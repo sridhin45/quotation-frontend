@@ -10,77 +10,45 @@
 }
 
 /* ===============================
-   TOP BAR
+   TOP BAR (White + Shadow)
 ================================*/
 .topbar {
-  height: 80px;
+  height: 90px;
   background: #ffffff;
   color: #1e293b;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 18px;
-  font-size: 18px;
+  padding: 0 25px;
+  font-size: 20px;
   font-weight: 600;
   flex-shrink: 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);   /* Soft shadow */
 }
 
 /* Logo + Text */
 .logo-area {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .top-logo {
-  height: 40px;
+  height: 45px;
   object-fit: contain;
 }
 
-.logo-textl {
-  font-size: 20px;
+.logo-text {
+  font-size: 22px;
   font-weight: 700;
   color: #1e293b;
 }
 
 /* ===============================
-   TOP ACTIONS
-================================*/
-.top-actions {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.top-btn {
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  background: #1976d2;
-  color: white;
-  font-size: 14px;
-  white-space: nowrap;
-}
-
-.top-btn:hover {
-  background:#3867d6;
-}
-
-.logout {
-  background:#eb3b5a;
-}
-
-.logout:hover{
-  background:#c23616;
-}
-
-/* ===============================
-   MAIN CONTENT
+   MAIN CONTENT CONTAINER
 ================================*/
 .main-container {
   display: flex;
@@ -89,18 +57,21 @@
 }
 
 /* ===============================
-   SIDEBAR
+   SIDEBAR (White + Shadow)
 ================================*/
 .sidebar {
-  width: 260px;
+  width: 240px;
   background: #ffffff;
   border-right: 1px solid #e2e8f0;
   padding-top: 20px;
   overflow-y: auto;
-  height: calc(100vh - 80px);
-  box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 70px;
+  height: calc(100vh - 70px);
+  box-shadow: 2px 0 5px rgba(0,0,0,0.04); /* Light shadow */
 }
 
+/* Sidebar List */
 .sidebar ul {
   list-style: none;
   padding: 0;
@@ -119,141 +90,80 @@
   transition: 0.2s;
 }
 
+/* Hover */
 .sidebar li:hover {
-  background:#f1f5f9;
-  border-left:3px solid #3b82f6;
+  background: #f1f5f9;
+  color: #0f172a;
+  border-left: 3px solid #3b82f6;
 }
 
+/* Active */
 .sidebar li.active {
-  background:#e0f2fe;
-  color:#0369a1;
-  font-weight:600;
-  border-left:3px solid #0284c7;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-weight: 600;
+  border-left: 3px solid #0284c7;
 }
 
+/* Material Icons */
 .sidebar mat-icon {
-  font-size:22px;
-  color:#475569;
+  font-size: 22px;
+  color: #475569;
 }
 
 /* ===============================
-   MAIN CONTENT AREA
+   MAIN CONTENT (Scrollable)
 ================================*/
 .content {
-  flex:1;
-  padding:20px;
-  overflow-y:auto;
+  flex: 1;
+  padding: 25px;
+  overflow-y: auto;
 }
-
-/* ===============================
-   PRINT
-================================*/
+/* HIDE LAYOUT DURING PRINT */
 @media print {
+
+  /* Hide topbar + sidebar completely */
   .topbar,
   .sidebar {
-    display:none!important;
-    visibility:hidden!important;
+    display: none !important;
+    visibility: hidden !important;
   }
 
+  /* Optional: hide layout wrapper */
   .layout {
-    display:block!important;
+    display: block !important;
   }
 
+  /* Reset sticky & fixed elements */
   * {
     position: static !important;
     box-shadow: none !important;
   }
 }
 
-/* ===============================
-   RESPONSIVE — Tablets
-================================*/
-@media (max-width: 992px) {
-  .sidebar {
-    width:220px;
-  }
-
-  .logo-textl {
-    font-size:18px;
-  }
-
-  .top-btn {
-    font-size:13px;
-  }
+.top-actions{
+  display: flex;
+  gap: 10px;
 }
 
-/* ===============================
-   RESPONSIVE — Mobile
-================================*/
-@media (max-width: 768px) {
-
-  .topbar {
-    height:75px;
-    padding: 0 12px;
-  }
-
-  .logo-textl {
-    display:none;      /* hide big text on mobile */
-  }
-
-  .top-logo {
-    height:35px;
-  }
-
-  .top-actions {
-    gap:5px;
-  }
-
-  .top-btn {
-    padding:5px 10px;
-    font-size:12px;
-  }
-
-  .main-container {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width:100%;
-    height:auto;
-    display:flex;
-    overflow-x:auto;
-    border-right:none;
-    border-bottom:1px solid #e5e7eb;
-  }
-
-  .sidebar ul {
-    display:flex;
-    flex-direction: row;
-    width:max-content;
-  }
-
-  .sidebar li {
-    flex-direction: column;
-    gap:4px;
-    border-left:none;
-    border-bottom:3px solid transparent;
-  }
-
-  .sidebar li.active {
-    border-bottom:3px solid #0284c7;
-  }
-
-  .content {
-    padding:14px;
-  }
+.top-btn{
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #1976d2;
+  color: white;
+  font-size: 14px;
 }
 
-/* ===============================
-   Small Mobile
-================================*/
-@media (max-width: 480px) {
-  .top-btn {
-    font-size:11px;
-    padding:4px 8px;
-  }
+.top-btn:hover{
+  background:#3867d6;
+}
 
-  .sidebar li {
-    font-size:12px;
-  }
+.logout{
+  background: #eb3b5a;
+}
+
+.logout:hover{
+  background:#c23616;
 }
