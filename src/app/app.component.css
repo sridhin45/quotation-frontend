@@ -1,35 +1,45 @@
 /* ===============================
-   MAIN LAYOUT WRAPPER
+   GLOBAL FIXES
+================================*/
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ===============================
+   MAIN LAYOUT
 ================================*/
 .layout {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100dvh;
   background: #f5f6f8;
 }
 
 /* ===============================
-   TOP BAR (White + Shadow)
+   TOP BAR
 ================================*/
 .topbar {
   height: 90px;
   background: #ffffff;
-  color: #1e293b;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 25px;
   font-size: 20px;
   font-weight: 600;
-  flex-shrink: 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);   /* Soft shadow */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-/* Logo + Text */
 .logo-area {
   display: flex;
   align-items: center;
@@ -38,40 +48,50 @@
 
 .top-logo {
   height: 45px;
-  object-fit: contain;
 }
 
 .logo-text {
   font-size: 22px;
   font-weight: 700;
+}
+
+/* ===============================
+   MENU BUTTON
+================================*/
+.menu-btn {
+  display: none;
+  font-size: 26px;
+  background: none;
+  border: none;
+  cursor: pointer;
   color: #1e293b;
 }
 
 /* ===============================
-   MAIN CONTENT CONTAINER
+   MAIN CONTAINER
 ================================*/
 .main-container {
   display: flex;
   flex: 1;
-  overflow: hidden;
+  min-height: 0;
 }
 
 /* ===============================
-   SIDEBAR (White + Shadow)
+   SIDEBAR (DESKTOP DEFAULT)
 ================================*/
 .sidebar {
+  display: block;                 /* 🔒 never hide */
   width: 240px;
-  background: #ffffff;
+  background: #ffffff;            /* solid fallback */
   border-right: 1px solid #e2e8f0;
   padding-top: 20px;
   overflow-y: auto;
   position: sticky;
-  top: 70px;
-  height: calc(100vh - 70px);
-  box-shadow: 2px 0 5px rgba(0,0,0,0.04); /* Light shadow */
+  top: 90px;
+  height: calc(100dvh - 90px);
+  box-shadow: 2px 0 5px rgba(0,0,0,0.04);
 }
 
-/* Sidebar List */
 .sidebar ul {
   list-style: none;
   padding: 0;
@@ -90,14 +110,11 @@
   transition: 0.2s;
 }
 
-/* Hover */
 .sidebar li:hover {
   background: #f1f5f9;
-  color: #0f172a;
   border-left: 3px solid #3b82f6;
 }
 
-/* Active */
 .sidebar li.active {
   background: #e0f2fe;
   color: #0369a1;
@@ -105,65 +122,113 @@
   border-left: 3px solid #0284c7;
 }
 
-/* Material Icons */
-.sidebar mat-icon {
-  font-size: 22px;
-  color: #475569;
-}
-
 /* ===============================
-   MAIN CONTENT (Scrollable)
+   CONTENT
 ================================*/
 .content {
   flex: 1;
   padding: 25px;
   overflow-y: auto;
-}
-/* HIDE LAYOUT DURING PRINT */
-@media print {
-
-  /* Hide topbar + sidebar completely */
-  .topbar,
-  .sidebar {
-    display: none !important;
-    visibility: hidden !important;
-  }
-
-  /* Optional: hide layout wrapper */
-  .layout {
-    display: block !important;
-  }
-
-  /* Reset sticky & fixed elements */
-  * {
-    position: static !important;
-    box-shadow: none !important;
-  }
+  -webkit-overflow-scrolling: touch;
 }
 
-.top-actions{
+/* ===============================
+   ACTION BUTTONS
+================================*/
+.top-actions {
   display: flex;
   gap: 10px;
 }
 
-.top-btn{
+.top-btn {
   padding: 6px 14px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
   background: #1976d2;
   color: white;
-  font-size: 14px;
 }
 
-.top-btn:hover{
-  background:#3867d6;
-}
-
-.logout{
+.logout {
   background: #eb3b5a;
 }
 
-.logout:hover{
-  background:#c23616;
+/* ===============================
+   OVERLAY (MOBILE)
+================================*/
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 200;
+}
+
+/* ===============================
+   MOBILE MODE (GLASS DRAWER)
+================================*/
+@media (max-width: 768px) {
+
+  .menu-btn {
+    display: block;
+  }
+
+  .main-container {
+    flex-direction: column;
+  }
+
+  /* Sidebar becomes drawer */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;                  /* hidden off-canvas */
+    width: 260px;
+    height: 100dvh;
+    z-index: 300;
+    transition: left 0.3s ease;
+
+    /* 🔥 Glass / transparent effect */
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow: 2px 0 18px rgba(0,0,0,0.25);
+    border-right: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  /* Improve contrast on glass */
+  .sidebar li {
+    color: #0f172a;
+    font-weight: 600;
+  }
+
+  .sidebar li:hover {
+    background: rgba(255,255,255,0.6);
+  }
+
+  .sidebar li.active {
+    background: rgba(59,130,246,0.18);
+    color: #1d4ed8;
+  }
+
+  .topbar {
+    height: 64px;
+    padding: 0 15px;
+    font-size: 16px;
+  }
+
+  .logo-text {
+    font-size: 18px;
+  }
+
+  .top-logo {
+    height: 36px;
+  }
+
+  .content {
+    padding: 15px;
+  }
 }

@@ -1,70 +1,84 @@
 <div class="layout">
 
   <!-- TOP BAR -->
-<header class="topbar">
-  <div class="logo-area">
-    <img src="assets\celastial.png" alt="Logo" class="top-logo">
-    <span class="logo-textl">Quotation System</span>
+  <header class="topbar">
+
+    <!-- LEFT: MENU + LOGO -->
+    <div class="logo-area">
+
+      <!-- MOBILE MENU BUTTON -->
+      <button class="menu-btn"
+              *ngIf="auth.isLoggedIn()"
+              (click)="toggleMenu()">
+        ☰
+      </button>
+
+      <img src="assets/celastial.png" class="top-logo" />
+      <span class="logo-text">Quotation System</span>
+    </div>
+
+    <!-- RIGHT ACTIONS -->
+    <div class="top-actions">
+
+      <button class="top-btn">
+        👤 {{ auth.getLoggedUsername() }}
+      </button>
+
+      <button
+        *ngIf="auth.isLoggedIn()"
+        (click)="logout()"
+        class="top-btn logout">
+        Logout
+      </button>
+
+    </div>
+  </header>
+
+  <!-- MOBILE OVERLAY -->
+  <div class="sidebar-overlay"
+       *ngIf="menuOpen"
+       (click)="closeMenu()">
   </div>
-<div class="top-actions">
-  
-  
-<button class="top-btn">
-  👤 {{ auth.getLoggedUsername() }}
-</button>
 
-
-<button 
-  *ngIf="auth.isLoggedIn()" 
-  (click)="logout()" 
-  class="top-btn logout">
-  Logout
-</button>
-
-
-</div>
-
-
-  <!-- <div class="top-right">
-    <span class="logo-textl">Welcome</span>
-  </div> -->
-</header>
-
-
-  <div class="main-container"  >
+  <!-- MAIN CONTAINER -->
+  <div class="main-container">
 
     <!-- SIDEBAR -->
-    <aside class="sidebar" *ngIf="auth.isLoggedIn()">
+    <aside class="sidebar"
+           *ngIf="auth.isLoggedIn()"
+           [class.open]="menuOpen">
+
       <ul>
 
-        <li (click)="goTo('/quotations/add')" 
+        <li (click)="goTo('/quotations/add'); closeMenu()"
             [class.active]="isActive('/quotations/add')">
           <mat-icon>add_circle</mat-icon>
           Add Quotation
         </li>
 
-        <li (click)="goTo('/quotations')" 
+        <li (click)="goTo('/quotations'); closeMenu()"
             [class.active]="isActive('/quotations')">
           <mat-icon>list_alt</mat-icon>
           Quotation List
         </li>
 
-        <li (click)="goTo('/quotations/view/1')" 
+        <li (click)="goTo('/quotations/view/1'); closeMenu()"
             [class.active]="isActive('/quotations/view')">
           <mat-icon>visibility</mat-icon>
           Sample View
         </li>
-    <li (click)="goTo('/quotations/item-list')" 
+
+        <li (click)="goTo('/quotations/item-list'); closeMenu()"
             [class.active]="isActive('/quotations/item-list')">
-<mat-icon>category</mat-icon>
+          <mat-icon>category</mat-icon>
           Item List
         </li>
 
-        <li (click)="goTo('/users')" 
-    [class.active]="isActive('/users')">
-  <mat-icon>group</mat-icon>
-  Users
-</li>
+        <li (click)="goTo('/users'); closeMenu()"
+            [class.active]="isActive('/users')">
+          <mat-icon>group</mat-icon>
+          Users
+        </li>
 
       </ul>
     </aside>
